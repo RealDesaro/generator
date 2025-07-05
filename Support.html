@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethora - Support Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Vibrant color palette */
+        :root {
+            --primary: #6e3bff;
+            --primary-dark: #4a1fd1;
+            --primary-light: #f0ebff;
+            --accent-1: #00f0ff;
+            --accent-2: #ff3d8b;
+            --accent-3: #ffb800;
+            --dark: #1a1a2e;
+            --darker: #0d0d1a;
+            --light: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent-1) 100%);
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-light: #ffffff;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --card-bg: rgba(30, 30, 50, 0.8);
+            --table-header: rgba(40, 40, 65, 0.9);
+            --table-row: rgba(35, 35, 55, 0.7);
+            --table-row-alt: rgba(32, 32, 52, 0.7);
+            --border-color: rgba(110, 59, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            line-height: 1.6;
+        }
+        
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: rgba(26, 26, 46, 0.8);
+            border-right: 1px solid var(--primary);
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+        
+        .logo-container {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-right: 15px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .app-version {
+            font-size: 0.8rem;
+            color: var(--accent-1);
+            opacity: 0.7;
+        }
+        
+        .nav-links {
+            list-style: none;
+            padding: 0 15px;
+        }
+        
+        .nav-item {
+            margin-bottom: 8px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 10px;
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: rgba(110, 59, 255, 0.2);
+            color: var(--accent-1);
+        }
+        
+        .nav-link.active {
+            border-left: 3px solid var(--accent-1);
+        }
+        
+        .nav-label {
+            margin: 20px 15px 10px;
+            font-size: 0.85rem;
+            color: var(--accent-1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            padding: 0 20px;
+        }
+        
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(110, 59, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--accent-1);
+            border: 1px solid var(--primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .social-link:hover {
+            background: rgba(0, 240, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+            overflow-y: auto;
+            height: 100vh;
+        }
+        
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--primary);
+        }
+        
+        .page-title {
+            font-size: 1.8rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .wallet-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .network-indicator {
+            background: rgba(110, 59, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .network-indicator i {
+            color: var(--success);
+        }
+        
+        .connect-btn {
+            padding: 10px 20px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .connect-btn:hover {
+            background: linear-gradient(90deg, var(--accent-1), var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(110, 59, 255, 0.3);
+        }
+        
+        .wallet-address {
+            background: rgba(110, 59, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .wallet-address:hover {
+            background: rgba(110, 59, 255, 0.4);
+        }
+        
+        /* Support Center Styles */
+        .support-hero {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 10px 20px rgba(110, 59, 255, 0.2);
+        }
+        
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--accent-1);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .support-search {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .support-search input {
+            width: 100%;
+            padding: 16px 20px 16px 60px;
+            background: rgba(26, 26, 46, 0.9);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        
+        .support-search i {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3rem;
+            color: var(--accent-1);
+        }
+        
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .support-card {
+            background: rgba(26, 26, 46, 0.7);
+            border: 1px solid var(--primary);
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .support-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(110, 59, 255, 0.25);
+            border-color: var(--accent-1);
+        }
+        
+        .support-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .support-card-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .support-card-content {
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+        
+        .contact-form-container {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid var(--primary);
+        }
+        
+        .form-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+        
+        .form-icon {
+            font-size: 2rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .form-title {
+            font-size: 2rem;
+            color: #fff;
+        }
+        
+        .form-description {
+            color: #aaa;
+            margin-bottom: 30px;
+            max-width: 700px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--accent-1);
+        }
+        
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(26, 26, 46, 0.9);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-1);
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .submit-btn {
+            padding: 16px 40px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(90deg, var(--accent-1), var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(110, 59, 255, 0.5);
+        }
+        
+        /* FAQ Section */
+        .faq-container {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid var(--primary);
+        }
+        
+        .faq-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+        
+        .faq-icon {
+            font-size: 2rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .faq-title {
+            font-size: 2rem;
+            color: #fff;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .faq-item {
+            background: rgba(26, 26, 46, 0.9);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: #aaa;
+            line-height: 1.7;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 25px 25px;
+            max-height: 500px;
+        }
+        
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .live-chat-container {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .chat-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .chat-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .chat-description {
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.7;
+        }
+        
+        .chat-btn {
+            padding: 16px 40px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .chat-btn:hover {
+            background: linear-gradient(90deg, var(--accent-1), var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(110, 59, 255, 0.5);
+        }
+        
+        .support-agents {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .agent-card {
+            background: rgba(26, 26, 46, 0.9);
+            border: 1px solid var(--primary);
+            border-radius: 18px;
+            padding: 25px;
+            text-align: center;
+            width: 220px;
+        }
+        
+        .agent-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .agent-name {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        
+        .agent-role {
+            color: var(--accent-1);
+            margin-bottom: 15px;
+        }
+        
+        .agent-status {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .status-online {
+            background: rgba(40, 167, 69, 0.2);
+            color: var(--success);
+        }
+        
+        .status-offline {
+            background: rgba(108, 117, 125, 0.2);
+            color: #6c757d;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+            }
+            
+            .logo h1, .nav-label, .nav-link span {
+                display: none;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            .nav-link {
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .nav-link i {
+                margin-right: 0;
+                font-size: 1.4rem;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+            
+            .top-bar {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .wallet-container {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .support-hero {
+                padding: 30px 20px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .contact-form-container,
+            .faq-container,
+            .live-chat-container {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .form-title, .faq-title, .chat-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h1>Ethora</h1>
+            </div>
+            <div class="app-version">v2.1.0</div>
+        </div>
+        
+        <div class="nav-label">Main</div>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="dashboard-link">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="token-generator-link">
+                    <i class="fas fa-fire"></i>
+                    <span>Token Generator</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="staking-link">
+                    <i class="fas fa-lock"></i>
+                    <span>Staking</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="live-pairs-link">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Live Pairs</span>
+                </a>
+            </li>
+        </ul>
+        
+        <div class="nav-label">Tools</div>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="dex-analytics-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>DEX Analytics</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="telegram-bot-link">
+                    <i class="fas fa-robot"></i>
+                    <span>Telegram Bot</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="contract-deploy-link">
+                    <i class="fas fa-code"></i>
+                    <span>Contract Deploy</span>
+                </a>
+            </li>
+        </ul>
+        
+        <div class="nav-label">Community</div>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="community-hub-link">
+                    <i class="fas fa-users"></i>
+                    <span>Community Hub</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="documentation-link">
+                    <i class="fas fa-book"></i>
+                    <span>Documentation</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link active" id="support-link">
+                    <i class="fas fa-headset"></i>
+                    <span>Support</span>
+                </a>
+            </li>
+        </ul>
+        
+        <div class="social-links">
+            <a href="#" class="social-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="fab fa-discord"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <h1 class="page-title">Support Center</h1>
+            <div class="wallet-container">
+                <div class="network-indicator">
+                    <i class="fas fa-circle"></i>
+                    <span>Ethereum Mainnet</span>
+                </div>
+                <button class="connect-btn" id="connect-btn">
+                    <i class="fas fa-plug"></i>
+                    <span>Connect Wallet</span>
+                </button>
+                <div class="wallet-address" id="wallet-address" style="display: none;">
+                    <i class="fas fa-wallet"></i>
+                    <span id="address-text">0x742d...f44e</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Support Hero Section -->
+        <div class="support-hero">
+            <div class="hero-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <h1 class="hero-title">Ethora Support Center</h1>
+            <p class="hero-subtitle">We're here to help you with any issues or questions you may have about our platform.</p>
+            
+            <div class="support-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search our knowledge base...">
+            </div>
+        </div>
+        
+        <!-- Support Options Grid -->
+        <div class="support-grid">
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3 class="support-card-title">Help Center</h3>
+                <p class="support-card-content">Browse our comprehensive knowledge base with guides, tutorials, and FAQs.</p>
+                <button class="card-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    Explore Help Center
+                </button>
+            </div>
+            
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <h3 class="support-card-title">Submit a Ticket</h3>
+                <p class="support-card-content">Contact our support team directly for personalized assistance.</p>
+                <button class="card-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    Submit Support Ticket
+                </button>
+            </div>
+            
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="support-card-title">Live Chat</h3>
+                <p class="support-card-content">Chat with our support agents in real-time for immediate help.</p>
+                <button class="card-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    Start Live Chat
+                </button>
+            </div>
+        </div>
+        
+        <!-- Contact Form -->
+        <div class="contact-form-container">
+            <div class="form-header">
+                <div class="form-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h2 class="form-title">Contact Our Support Team</h2>
+            </div>
+            
+            <p class="form-description">Fill out the form below and our support team will get back to you within 24 hours. For urgent issues, please use our live chat.</p>
+            
+            <form id="support-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" placeholder="Enter your name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="wallet">Wallet Address</label>
+                        <input type="text" id="wallet" placeholder="0x...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject">
+                            <option value="">Select an option</option>
+                            <option value="token">Token Deployment Issue</option>
+                            <option value="staking">Staking Problem</option>
+                            <option value="transaction">Transaction Problem</option>
+                            <option value="security">Security Concern</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="message">Message</label>
+                        <textarea id="message" placeholder="Describe your issue in detail..."></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="attachments">Attachments (Optional)</label>
+                        <input type="file" id="attachments">
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Submit Support Request
+                </button>
+            </form>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="faq-container">
+            <div class="faq-header">
+                <div class="faq-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long does token deployment take?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Token deployment typically takes 1-3 minutes after you confirm the transaction in your wallet. The exact time depends on Ethereum network congestion. You can track your deployment progress in the dashboard.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Why is my transaction taking so long?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Transaction times depend on the gas fee you paid and current network congestion. You can speed up a pending transaction by increasing the gas fee in your wallet. If a transaction is stuck for more than 24 hours, it will eventually be dropped by the network.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I connect my wallet to Ethora?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Click the "Connect Wallet" button in the top right corner of the dashboard. Select your wallet provider (MetaMask, WalletConnect, etc.) and authorize the connection. Make sure you're on the Ethereum Mainnet.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What are the gas fee requirements?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Gas fees vary based on Ethereum network congestion. Token deployment typically requires 0.01-0.05 ETH in gas fees. We recommend checking current gas prices on Etherscan before initiating transactions. During high congestion periods, consider waiting or using our "Low Gas" option.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I change token parameters after deployment?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Most token parameters (name, symbol, total supply) are immutable after deployment. Some parameters like taxes and wallet limits can be changed if you deployed our advanced token contract. Refer to your token's contract documentation for specific capabilities.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I verify my token contract?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>After deployment, go to the "Token Management" section in your dashboard. Click "Verify Contract" and follow the steps to submit your source code to Etherscan. Our system automatically prepares the verification files for you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Live Chat Section -->
+        <div class="live-chat-container">
+            <div class="chat-icon">
+                <i class="fas fa-comment-dots"></i>
+            </div>
+            <h2 class="chat-title">Live Chat Support</h2>
+            <p class="chat-description">Our support team is available 24/7 to assist you with any issues. Click the button below to start a live chat session. Average response time is under 2 minutes during business hours.</p>
+            
+            <button class="chat-btn">
+                <i class="fas fa-comment"></i> Start Live Chat
+            </button>
+            
+            <div class="support-agents">
+                <div class="agent-card">
+                    <div class="agent-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="agent-name">Sarah Johnson</h3>
+                    <div class="agent-role">Senior Support Agent</div>
+                    <div class="agent-status status-online">Online</div>
+                </div>
+                
+                <div class="agent-card">
+                    <div class="agent-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="agent-name">Michael Chen</h3>
+                    <div class="agent-role">Token Specialist</div>
+                    <div class="agent-status status-online">Online</div>
+                </div>
+                
+                <div class="agent-card">
+                    <div class="agent-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="agent-name">Alex Rodriguez</h3>
+                    <div class="agent-role">Blockchain Engineer</div>
+                    <div class="agent-status status-online">Online</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Global variables
+        let isConnected = false;
+        const walletAddress = "0x742d35Cc6634C0532925a3b844Bc454e4438f44e";
+        
+        // DOM Elements
+        const connectBtn = document.getElementById('connect-btn');
+        const walletAddressEl = document.getElementById('wallet-address');
+        const addressText = document.getElementById('address-text');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pageTitle = document.querySelector('.page-title');
+        const faqItems = document.querySelectorAll('.faq-item');
+        const supportForm = document.getElementById('support-form');
+        
+        // Simulate wallet connection
+        connectBtn.addEventListener('click', function() {
+            if (!isConnected) {
+                isConnected = true;
+                connectBtn.style.display = 'none';
+                walletAddressEl.style.display = 'flex';
+                addressText.textContent = walletAddress.slice(0, 6) + '...' + walletAddress.slice(-4);
+                
+                // Show connection success notification
+                showNotification('Wallet connected successfully!', 'success');
+            }
+        });
+        
+        // Navigation functions
+        function showPage(pageId, title) {
+            // Update active nav link
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            document.getElementById('support-link').classList.add('active');
+            pageTitle.textContent = title;
+        }
+        
+        // Initialize to Support
+        showPage('support', 'Support Center');
+        
+        // Show notification
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.padding = '15px 25px';
+            notification.style.borderRadius = '10px';
+            notification.style.display = 'flex';
+            notification.style.alignItems = 'center';
+            notification.style.gap = '15px';
+            notification.style.zIndex = '2000';
+            notification.style.transform = 'translateX(100%)';
+            notification.style.transition = 'transform 0.3s ease';
+            
+            notification.innerHTML = `
+                <div class="notification-icon">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                </div>
+                <div class="notification-content">${message}</div>
+            `;
+            
+            // Add to body
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 5000);
+        }
+        
+        // FAQ toggle functionality
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all items
+                faqItems.forEach(faq => {
+                    faq.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // Support form submission
+        supportForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!isConnected) {
+                showNotification('Please connect your wallet to submit a support ticket!', 'warning');
+                return;
+            }
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            
+            if (!name || !email || !subject) {
+                showNotification('Please fill in all required fields!', 'warning');
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                showNotification('Support ticket submitted successfully!', 'success');
+                supportForm.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+        
+        // Live chat button
+        document.querySelector('.chat-btn').addEventListener('click', function() {
+            if (!isConnected) {
+                showNotification('Please connect your wallet to start live chat!', 'warning');
+                return;
+            }
+            
+            const btn = this;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+            
+            setTimeout(() => {
+                showNotification('Live chat connected! An agent will be with you shortly.', 'success');
+                btn.innerHTML = originalText;
+                
+                // Simulate chat opening
+                document.querySelector('.agent-card').style.boxShadow = '0 0 20px rgba(0, 240, 255, 0.5)';
+            }, 1500);
+        });
+        
+        // Support card interactions
+        document.querySelectorAll('.support-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const btn = this.querySelector('.card-btn');
+                btn.style.background = 'var(--success)';
+                btn.innerHTML = '<i class="fas fa-check"></i> Opening...';
+                
+                setTimeout(() => {
+                    btn.style.background = '';
+                    btn.innerHTML = '<i class="fas fa-arrow-right"></i> ' + 
+                        this.querySelector('.support-card-title').textContent;
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
