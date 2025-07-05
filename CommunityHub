@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethora - Community Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Vibrant color palette */
+        :root {
+            --primary: #6e3bff;
+            --primary-dark: #4a1fd1;
+            --primary-light: #f0ebff;
+            --accent-1: #00f0ff;
+            --accent-2: #ff3d8b;
+            --accent-3: #ffb800;
+            --dark: #1a1a2e;
+            --darker: #0d0d1a;
+            --light: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent-1) 100%);
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-light: #ffffff;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --card-bg: rgba(30, 30, 50, 0.8);
+            --table-header: rgba(40, 40, 65, 0.9);
+            --table-row: rgba(35, 35, 55, 0.7);
+            --table-row-alt: rgba(32, 32, 52, 0.7);
+            --border-color: rgba(110, 59, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            line-height: 1.6;
+        }
+        
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: rgba(26, 26, 46, 0.8);
+            border-right: 1px solid var(--primary);
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+        
+        .logo-container {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-right: 15px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .app-version {
+            font-size: 0.8rem;
+            color: var(--accent-1);
+            opacity: 0.7;
+        }
+        
+        .nav-links {
+            list-style: none;
+            padding: 0 15px;
+        }
+        
+        .nav-item {
+            margin-bottom: 8px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 10px;
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: rgba(110, 59, 255, 0.2);
+            color: var(--accent-1);
+        }
+        
+        .nav-link.active {
+            border-left: 3px solid var(--accent-1);
+        }
+        
+        .nav-label {
+            margin: 20px 15px 10px;
+            font-size: 0.85rem;
+            color: var(--accent-1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            padding: 0 20px;
+        }
+        
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(110, 59, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--accent-1);
+            border: 1px solid var(--primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .social-link:hover {
+            background: rgba(0, 240, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+            overflow-y: auto;
+            height: 100vh;
+        }
+        
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--primary);
+        }
+        
+        .page-title {
+            font-size: 1.8rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .wallet-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .network-indicator {
+            background: rgba(110, 59, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .network-indicator i {
+            color: var(--success);
+        }
+        
+        .connect-btn {
+            padding: 10px 20px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .connect-btn:hover {
+            background: linear-gradient(90deg, var(--accent-1), var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(110, 59, 255, 0.3);
+        }
+        
+        .wallet-address {
+            background: rgba(110, 59, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .wallet-address:hover {
+            background: rgba(110, 59, 255, 0.4);
+        }
+        
+        /* Community Hub Styles */
+        .community-hub-container {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--primary);
+            margin-bottom: 30px;
+        }
+        
+        .hub-header {
+            padding: 30px 40px;
+            background: rgba(26, 26, 46, 0.9);
+            border-bottom: 1px solid var(--primary);
+            text-align: center;
+        }
+        
+        .hub-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hub-subtitle {
+            font-size: 1.3rem;
+            color: var(--accent-1);
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+        
+        .hub-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #aaa;
+        }
+        
+        .hub-main-content {
+            padding: 40px 30px;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        
+        @media (max-width: 1200px) {
+            .hub-main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .hub-section {
+            background: rgba(26, 26, 46, 0.7);
+            border: 1px solid rgba(110, 59, 255, 0.5);
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+        
+        .section-icon {
+            font-size: 1.8rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #fff;
+        }
+        
+        /* Discussions */
+        .discussion-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .discussion-item {
+            background: rgba(26, 26, 46, 0.9);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .discussion-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(110, 59, 255, 0.3);
+            border-color: var(--accent-1);
+        }
+        
+        .discussion-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .discussion-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .discussion-tag {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            background: rgba(0, 240, 255, 0.2);
+            color: var(--accent-1);
+        }
+        
+        .discussion-content {
+            color: #aaa;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .discussion-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .discussion-author {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .author-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .start-discussion-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .start-discussion-btn:hover {
+            background: linear-gradient(90deg, var(--accent-1), var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(110, 59, 255, 0.4);
+        }
+        
+        /* Community Members */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 20px;
+        }
+        
+        .member-card {
+            background: rgba(26, 26, 46, 0.9);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(110, 59, 255, 0.3);
+            border-color: var(--accent-1);
+        }
+        
+        .member-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--gradient);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+        
+        .member-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        
+        .member-role {
+            font-size: 0.9rem;
+            color: var(--accent-1);
+            margin-bottom: 10px;
+        }
+        
+        .member-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .member-tag {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            background: rgba(110, 59, 255, 0.2);
+            color: var(--accent-1);
+        }
+        
+        /* Events Section */
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .event-item {
+            background: rgba(26, 26, 46, 0.9);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .event-date {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-1);
+        }
+        
+        .event-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            background: rgba(255, 184, 0, 0.2);
+            color: var(--accent-3);
+        }
+        
+        .event-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .event-description {
+            color: #aaa;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .event-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .event-rsvp {
+            padding: 8px 20px;
+            background: rgba(110, 59, 255, 0.2);
+            border: 1px solid var(--accent-1);
+            border-radius: 12px;
+            color: var(--accent-1);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            margin-top: 15px;
+        }
+        
+        .event-rsvp:hover {
+            background: rgba(0, 240, 255, 0.2);
+        }
+        
+        /* Resources Section */
+        .resources-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .resource-item {
+            background: rgba(26, 26, 46, 0.9);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .resource-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(110, 59, 255, 0.3);
+            border-color: var(--accent-1);
+        }
+        
+        .resource-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .resource-icon {
+            font-size: 1.5rem;
+            color: var(--accent-1);
+        }
+        
+        .resource-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .resource-description {
+            color: #aaa;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+            }
+            
+            .logo h1, .nav-label, .nav-link span {
+                display: none;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            .nav-link {
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .nav-link i {
+                margin-right: 0;
+                font-size: 1.4rem;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .top-bar {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .wallet-container {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .hub-stats {
+                gap: 20px;
+            }
+            
+            .stat-item {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 15px;
+            }
+            
+            .hub-header {
+                padding: 20px;
+            }
+            
+            .hub-title {
+                font-size: 2rem;
+            }
+            
+            .hub-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h1>Ethora</h1>
+            </div>
+            <div class="app-version">v2.1.0</div>
+        </div>
+        
+        <div class="nav-label">Main</div>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="dashboard-link">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="token-generator-link">
+                    <i class="fas fa-fire"></i>
+                    <span>Token Generator</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="staking-link">
+                    <i class="fas fa-lock"></i>
+                    <span>Staking</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="live-pairs-link">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Live Pairs</span>
+                </a>
+            </li>
+        </ul>
+        
+        <div class="nav-label">Tools</div>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="dex-analytics-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>DEX Analytics</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="telegram-bot-link">
+                    <i class="fas fa-robot"></i>
+                    <span>Telegram Bot</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="contract-deploy-link">
+                    <i class="fas fa-code"></i>
+                    <span>Contract Deploy</span>
+                </a>
+            </li>
+        </ul>
+        
+        <div class="nav-label">Community</div>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" id="community-hub-link">
+                    <i class="fas fa-users"></i>
+                    <span>Community Hub</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="documentation-link">
+                    <i class="fas fa-book"></i>
+                    <span>Documentation</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="support-link">
+                    <i class="fas fa-headset"></i>
+                    <span>Support</span>
+                </a>
+            </li>
+        </ul>
+        
+        <div class="social-links">
+            <a href="#" class="social-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="fab fa-discord"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <h1 class="page-title">Community Hub</h1>
+            <div class="wallet-container">
+                <div class="network-indicator">
+                    <i class="fas fa-circle"></i>
+                    <span>Ethereum Mainnet</span>
+                </div>
+                <button class="connect-btn" id="connect-btn">
+                    <i class="fas fa-plug"></i>
+                    <span>Connect Wallet</span>
+                </button>
+                <div class="wallet-address" id="wallet-address" style="display: none;">
+                    <i class="fas fa-wallet"></i>
+                    <span id="address-text">0x742d...f44e</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Community Hub Content -->
+        <div class="community-hub-container">
+            <div class="hub-header">
+                <h1 class="hub-title">Ethora Community Hub</h1>
+                <p class="hub-subtitle">Connect with token creators, investors, and blockchain enthusiasts. Share knowledge, discuss strategies, and grow together.</p>
+                
+                <div class="hub-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">8,421</div>
+                        <div class="stat-label">Community Members</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">1,256</div>
+                        <div class="stat-label">Active Discussions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">42</div>
+                        <div class="stat-label">Upcoming Events</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">178</div>
+                        <div class="stat-label">Resources Shared</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hub-main-content">
+                <div class="hub-left-column">
+                    <!-- Discussions Section -->
+                    <div class="hub-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h2 class="section-title">Community Discussions</h2>
+                        </div>
+                        
+                        <div class="discussion-list">
+                            <div class="discussion-item">
+                                <div class="discussion-header">
+                                    <h3 class="discussion-title">How to structure tokenomics for long-term growth?</h3>
+                                    <div class="discussion-tag">Tokenomics</div>
+                                </div>
+                                <p class="discussion-content">I'm launching a utility token and want to ensure sustainable growth. What are the best practices for token distribution, vesting schedules, and incentive structures?</p>
+                                <div class="discussion-meta">
+                                    <div class="discussion-author">
+                                        <div class="author-avatar">JD</div>
+                                        <span>John DeFi</span>
+                                    </div>
+                                    <div class="discussion-info">
+                                        <span><i class="fas fa-comment"></i> 24 replies</span>
+                                        <span><i class="fas fa-eye"></i> 142 views</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="discussion-item">
+                                <div class="discussion-header">
+                                    <h3 class="discussion-title">Best strategies for token listing after deployment</h3>
+                                    <div class="discussion-tag">Marketing</div>
+                                </div>
+                                <p class="discussion-content">Just deployed my token through Ethora. What are the most effective strategies to get listed on DEXs and gain initial traction?</p>
+                                <div class="discussion-meta">
+                                    <div class="discussion-author">
+                                        <div class="author-avatar">SC</div>
+                                        <span>Sarah Crypto</span>
+                                    </div>
+                                    <div class="discussion-info">
+                                        <span><i class="fas fa-comment"></i> 18 replies</span>
+                                        <span><i class="fas fa-eye"></i> 98 views</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="discussion-item">
+                                <div class="discussion-header">
+                                    <h3 class="discussion-title">Looking for solidity developer for token contract audit</h3>
+                                    <div class="discussion-tag">Hiring</div>
+                                </div>
+                                <p class="discussion-content">Our project needs an experienced Solidity developer to audit our token contract before mainnet deployment. Budget: 2 ETH.</p>
+                                <div class="discussion-meta">
+                                    <div class="discussion-author">
+                                        <div class="author-avatar">MW</div>
+                                        <span>Mike Web3</span>
+                                    </div>
+                                    <div class="discussion-info">
+                                        <span><i class="fas fa-comment"></i> 7 replies</span>
+                                        <span><i class="fas fa-eye"></i> 56 views</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="discussion-item">
+                                <div class="discussion-header">
+                                    <h3 class="discussion-title">Experiences with Ethora Telegram Bot?</h3>
+                                    <div class="discussion-tag">Feedback</div>
+                                </div>
+                                <p class="discussion-content">Has anyone used the Ethora Telegram Bot for token deployment? Would love to hear about your experience before trying it.</p>
+                                <div class="discussion-meta">
+                                    <div class="discussion-author">
+                                        <div class="author-avatar">TC</div>
+                                        <span>Tina Creator</span>
+                                    </div>
+                                    <div class="discussion-info">
+                                        <span><i class="fas fa-comment"></i> 15 replies</span>
+                                        <span><i class="fas fa-eye"></i> 87 views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="start-discussion-btn">
+                            <i class="fas fa-plus"></i> Start New Discussion
+                        </button>
+                    </div>
+                    
+                    <!-- Events Section -->
+                    <div class="hub-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h2 class="section-title">Upcoming Events</h2>
+                        </div>
+                        
+                        <div class="events-list">
+                            <div class="event-item">
+                                <div class="event-header">
+                                    <div class="event-date">June 15, 2023 | 15:00 UTC</div>
+                                    <div class="event-status">Upcoming</div>
+                                </div>
+                                <h3 class="event-title">Tokenomics Deep Dive Workshop</h3>
+                                <p class="event-description">Join our expert panel to discuss token utility, distribution models, and incentive structures for sustainable token economies.</p>
+                                <div class="event-meta">
+                                    <div><i class="fas fa-user"></i> Host: Alex TokenDesigner</div>
+                                    <div><i class="fas fa-users"></i> 124 attending</div>
+                                </div>
+                                <button class="event-rsvp">RSVP to Event</button>
+                            </div>
+                            
+                            <div class="event-item">
+                                <div class="event-header">
+                                    <div class="event-date">June 18, 2023 | 18:00 UTC</div>
+                                    <div class="event-status">Upcoming</div>
+                                </div>
+                                <h3 class="event-title">AMA with DeFi Launchpad Founders</h3>
+                                <p class="event-description">Ask Anything session with founders of top DeFi launchpads. Learn how to prepare for successful token launches.</p>
+                                <div class="event-meta">
+                                    <div><i class="fas fa-user"></i> Host: LaunchHub Team</div>
+                                    <div><i class="fas fa-users"></i> 87 attending</div>
+                                </div>
+                                <button class="event-rsvp">RSVP to Event</button>
+                            </div>
+                            
+                            <div class="event-item">
+                                <div class="event-header">
+                                    <div class="event-date">June 22, 2023 | 16:30 UTC</div>
+                                    <div class="event-status">Upcoming</div>
+                                </div>
+                                <h3 class="event-title">Smart Contract Security Best Practices</h3>
+                                <p class="event-description">Learn how to audit your token contracts and implement security best practices to protect your project and investors.</p>
+                                <div class="event-meta">
+                                    <div><i class="fas fa-user"></i> Host: SecureChain Audits</div>
+                                    <div><i class="fas fa-users"></i> 203 attending</div>
+                                </div>
+                                <button class="event-rsvp">RSVP to Event</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hub-right-column">
+                    <!-- Community Members -->
+                    <div class="hub-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <h2 class="section-title">Featured Members</h2>
+                        </div>
+                        
+                        <div class="members-grid">
+                            <div class="member-card">
+                                <div class="member-avatar">
+                                    <i class="fas fa-crown"></i>
+                                </div>
+                                <h3 class="member-name">Alex Token</h3>
+                                <div class="member-role">Token Designer</div>
+                                <div class="member-tags">
+                                    <span class="member-tag">Tokenomics</span>
+                                    <span class="member-tag">DeFi</span>
+                                </div>
+                            </div>
+                            
+                            <div class="member-card">
+                                <div class="member-avatar">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <h3 class="member-name">Sarah Launch</h3>
+                                <div class="member-role">Project Manager</div>
+                                <div class="member-tags">
+                                    <span class="member-tag">Marketing</span>
+                                    <span class="member-tag">IDOs</span>
+                                </div>
+                            </div>
+                            
+                            <div class="member-card">
+                                <div class="member-avatar">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <h3 class="member-name">Mike Solidity</h3>
+                                <div class="member-role">Solidity Developer</div>
+                                <div class="member-tags">
+                                    <span class="member-tag">Security</span>
+                                    <span class="member-tag">Audits</span>
+                                </div>
+                            </div>
+                            
+                            <div class="member-card">
+                                <div class="member-avatar">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h3 class="member-name">Tina Analyst</h3>
+                                <div class="member-role">DeFi Analyst</div>
+                                <div class="member-tags">
+                                    <span class="member-tag">Research</span>
+                                    <span class="member-tag">Trading</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resources Section -->
+                    <div class="hub-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h2 class="section-title">Community Resources</h2>
+                        </div>
+                        
+                        <div class="resources-list">
+                            <div class="resource-item">
+                                <div class="resource-header">
+                                    <div class="resource-icon">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </div>
+                                    <h3 class="resource-title">Tokenomics Design Guide</h3>
+                                </div>
+                                <p class="resource-description">Comprehensive guide to designing sustainable token economies for long-term project success.</p>
+                                <div class="resource-meta">
+                                    <span>Shared by Alex Token</span>
+                                    <span>2 days ago</span>
+                                </div>
+                            </div>
+                            
+                            <div class="resource-item">
+                                <div class="resource-header">
+                                    <div class="resource-icon">
+                                        <i class="fas fa-video"></i>
+                                    </div>
+                                    <h3 class="resource-title">Smart Contract Security Workshop</h3>
+                                </div>
+                                <p class="resource-description">Recording of our live workshop on token contract security best practices.</p>
+                                <div class="resource-meta">
+                                    <span>Shared by Mike Solidity</span>
+                                    <span>1 week ago</span>
+                                </div>
+                            </div>
+                            
+                            <div class="resource-item">
+                                <div class="resource-header">
+                                    <div class="resource-icon">
+                                        <i class="fas fa-link"></i>
+                                    </div>
+                                    <h3 class="resource-title">Top DEX Listing Strategies</h3>
+                                </div>
+                                <p class="resource-description">Curated list of effective strategies for getting listed on major decentralized exchanges.</p>
+                                <div class="resource-meta">
+                                    <span>Shared by Sarah Launch</span>
+                                    <span>3 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Community Guidelines -->
+                    <div class="hub-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <h2 class="section-title">Community Guidelines</h2>
+                        </div>
+                        
+                        <div class="discussion-content">
+                            <p>Welcome to the Ethora Community Hub! To maintain a productive environment:</p>
+                            <ul style="padding-left: 20px; margin-top: 10px; color: #aaa;">
+                                <li>Be respectful to all community members</li>
+                                <li>Share knowledge and help others</li>
+                                <li>No spamming or self-promotion without value</li>
+                                <li>Keep discussions relevant to token creation and blockchain</li>
+                                <li>Report any suspicious activity to moderators</li>
+                            </ul>
+                            <p style="margin-top: 15px;">Violations may result in temporary or permanent removal from the community.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Global variables
+        let isConnected = false;
+        const walletAddress = "0x742d35Cc6634C0532925a3b844Bc454e4438f44e";
+        
+        // DOM Elements
+        const connectBtn = document.getElementById('connect-btn');
+        const walletAddressEl = document.getElementById('wallet-address');
+        const addressText = document.getElementById('address-text');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pageTitle = document.querySelector('.page-title');
+        
+        // Simulate wallet connection
+        connectBtn.addEventListener('click', function() {
+            if (!isConnected) {
+                isConnected = true;
+                connectBtn.style.display = 'none';
+                walletAddressEl.style.display = 'flex';
+                addressText.textContent = walletAddress.slice(0, 6) + '...' + walletAddress.slice(-4);
+                
+                // Show connection success notification
+                showNotification('Wallet connected successfully!', 'success');
+            }
+        });
+        
+        // Navigation functions
+        function showPage(pageId, title) {
+            // Update active nav link
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            document.getElementById('community-hub-link').classList.add('active');
+            pageTitle.textContent = title;
+        }
+        
+        // Initialize to Community Hub
+        showPage('community-hub', 'Community Hub');
+        
+        // Show notification
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.padding = '15px 25px';
+            notification.style.borderRadius = '10px';
+            notification.style.display = 'flex';
+            notification.style.alignItems = 'center';
+            notification.style.gap = '15px';
+            notification.style.zIndex = '2000';
+            notification.style.transform = 'translateX(100%)';
+            notification.style.transition = 'transform 0.3s ease';
+            
+            notification.innerHTML = `
+                <div class="notification-icon">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                </div>
+                <div class="notification-content">${message}</div>
+            `;
+            
+            // Add to body
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 5000);
+        }
+        
+        // Add interactivity to community elements
+        document.querySelectorAll('.discussion-item, .member-card, .resource-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+        
+        // RSVP button animation
+        document.querySelectorAll('.event-rsvp').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const originalText = this.textContent;
+                this.textContent = 'Confirmed!';
+                this.style.background = 'var(--success)';
+                this.style.color = 'white';
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.background = '';
+                    this.style.color = '';
+                }, 2000);
+            });
+        });
+        
+        // New discussion button
+        document.querySelector('.start-discussion-btn').addEventListener('click', function() {
+            if (!isConnected) {
+                showNotification('Please connect your wallet to start a discussion!', 'warning');
+                return;
+            }
+            
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Discussion...';
+            setTimeout(() => {
+                showNotification('Discussion created successfully!', 'success');
+                this.innerHTML = '<i class="fas fa-plus"></i> Start New Discussion';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
